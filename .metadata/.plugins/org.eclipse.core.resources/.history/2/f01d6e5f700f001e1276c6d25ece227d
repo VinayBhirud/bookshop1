@@ -1,0 +1,62 @@
+package com.sunbeam.servlets;
+
+import javax.servlet.http.HttpServlet;
+
+import com.sunbeam.daos.BookDao;
+
+public class RegisterServlet extends HttpServlet {
+    private BookDao bookDAO; // Assuming you have a BookDAO instance
+    
+    // Initialize the BookDAO in the servlet's init() method
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        bookDAO = new BookDao(); // Initialize the BookDAO
+    }
+    
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retrieve the form data from the request
+        String name = request.getParameter("name");
+        String mobNo = request.getParameter("mobno");
+        String address = request.getParameter("address");
+        String dob = request.getParameter("dob");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        
+        try {
+            // Perform database operations using the BookDAO
+            Connection connection = bookDAO.getConnection();
+            
+            // Create and execute an SQL query using the BookDAO's methods
+            String query = "INSERT INTO users (name, mobno, address, dob, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, mobNo);
+            statement.setString(3, address);
+            statement.setString(4, dob);
+            statement.setString(5, email);
+            statement.setString(6, password);
+            statement.executeUpdate();
+            
+            // Redirect to a success page or display a success message
+            response.sendRedirect("success.html");
+            
+            // Close the database resources
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            // Handle database errors
+            e.printStackTrace();
+            
+            // Redirect to an error page or display an error message
+            response.sendRedirect("error.html");
+        }
+    }
+    
+    // Override the servlet's destroy() method to clean up resources
+    @Override
+    public void destroy() {
+        super.destroy();
+        bookDAO.closeConnection(); // Close the BookDAO's database connection
+    }
+}

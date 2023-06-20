@@ -1,0 +1,36 @@
+package com.sunbeam.servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ShowCartServlet extends HttpServlet {
+   @Override
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	   double total = 0.0;
+	   resp.setContentType("text/html");
+	   PrintWriter out = resp.getWriter();
+	   out.println("<html>");
+	   out.println("<head>");
+	   out.println("<title>Cart</title>");
+	   out.println("</head>");
+	   out.println("<body>");
+	   out.println("<table border='1'>");
+	   out.println("<thead>");
+	   out.println("<th>Id</th>");
+	   out.println("<th>Name</th>");
+	   out.println("<th>Author</th>");
+	   out.println("<th>Subject</th>");
+	   out.println("<th>Price</th>");
+	   out.println("</thead>");
+	   out.println("</table>");
+	   out.printf("<Total Amount: Rs. %.2f/-<br/><br/>",total);
+	   out.println("<a href='logout'>SignOut</a>");
+	   out.println("</body>");
+	   out.println("</html>");
+   }
+}
