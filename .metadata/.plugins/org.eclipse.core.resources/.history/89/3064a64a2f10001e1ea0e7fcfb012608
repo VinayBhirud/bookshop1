@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,19 +31,6 @@ public class SubjectServlets extends HttpServlet {
 		out.println("<title>Subjects</title>");
 		out.println("</head>");
 		out.println("<body>");
-		
-		String uname = "Unknown";
-				Cookie[] arr = req.getCookies();
-				if(arr != null) {
-					for(Cookie c:arr) {
-						if(c.getName().equals("uname")) {
-							uname = c.getValue();
-							break;
-						}
-					}
-				}
-				out.printf("Hello, %s <hr/>\r\n", uname);
-				
 		out.println("<form method='post' action='subbooks'>");
 		for(String subject:subjects)
 				out.printf("<input type='radio' name='subject' value='%s'/> %s <br/>\r\n",

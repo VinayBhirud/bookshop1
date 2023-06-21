@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,11 +22,6 @@ public class LoginServlet extends HttpServlet {
 		try (CustomerDao dao = new CustomerDao()) {
 			Customer dbCust = dao.findByEmail(email);
 			if (dbCust != null && dbCust.getPassword().equals(password)) {
-				
-				Cookie c = new Cookie("uname",dbCust.getName());
-				c.setMaxAge(3600);
-				resp.addCookie(c);
-				
 				// go to subjects or books servlet
 				if (dbCust.getRole().equals("ROLE_CUSTOMER"))
 					resp.sendRedirect("subjects");

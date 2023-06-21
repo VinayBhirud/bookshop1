@@ -26,6 +26,7 @@ INDEX VERSION 1.131+/home/sunbeam/MARCH23/MYWORK/adjava/day02/.metadata/.plugins
 2743324275.index
 1153783977.index
 4106424451.index
+1865797976.index
 77948065.index
 2728085475.index
 1945487791.index
