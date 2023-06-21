@@ -1,9 +1,6 @@
-INDEX VERSION 1.4+/home/sunbeam/MARCH23/MYWORK/JAVA/day02/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-473371806.index
-1284830753.index
-891943827.index
+INDEX VERSION 1.4+/home/sunbeam/MARCH23/MYWORK/adjava/day02/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1195624125.index
 1153783977.index
-367162612.index
-367162612.index
-3712276904.index
-1668010344.index
+464703677.index
+3232865457.index
+718887747.index

@@ -43,7 +43,6 @@ public class RegisterServlet extends HttpServlet {
 		c.setPassword(password);
 		c.setMobile(mobile);
 		c.setBirth(birthDate);
-		c.setEnabled(1);
 		c.setRole("ROLE_CUSTOMER");
 
 		int cnt = -1;

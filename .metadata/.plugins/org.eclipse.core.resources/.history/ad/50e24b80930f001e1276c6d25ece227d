@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.sunbeam.daos.Customer;
 import com.sunbeam.daos.CustomerDao;
 import com.sunbeam.daos.DbUtil;
@@ -43,7 +42,6 @@ public class RegisterServlet extends HttpServlet {
 		c.setPassword(password);
 		c.setMobile(mobile);
 		c.setBirth(birthDate);
-		c.setEnabled(1);
 		c.setRole("ROLE_CUSTOMER");
 
 		int cnt = -1;
