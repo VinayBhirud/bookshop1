@@ -3,7 +3,6 @@ package com.sunbeam.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sunbeam.daos.Book;
-import com.sunbeam.daos.BookDao;
 import com.sunbeam.daos.Customer;
 @WebServlet("/showcart")
 public class ShowCartServlet extends HttpServlet {
@@ -45,7 +42,6 @@ public class ShowCartServlet extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		out.printf("Email: %s, Mobile: %s, Address: %s, Birth: %s<hr/>\r\n",cust.getEmail(),cust.getMobile(),cust.getAddress(),cust.getBirth());
 		
-		List<Integer> cart = (List<Integer>) session.getAttribute("cart");
 	   out.println("<table border='1'>");
 	   out.println("<thead>");
 	   out.println("<th>Id</th>");
@@ -54,27 +50,6 @@ public class ShowCartServlet extends HttpServlet {
 	   out.println("<th>Subject</th>");
 	   out.println("<th>Price</th>");
 	   out.println("</thead>");
-	   out.println("</tbody>");
-	   try(BookDao dao = new BookDao()) {
-		   			//render table rows and columns (as per books in cart)
-		   			for (int id : cart) {
-		   				//get book details from database and display them
-		   				Book b = dao.findById(id);
-		   				out.println("<tr>");
-		   				out.printf("<td>%d</td>", id);
-		   				out.printf("<td>%s</td>", b.getName());
-		   				out.printf("<td>%s</td>", b.getAuthor());
-		   				out.printf("<td>%s</td>", b.getSubject());
-		   				out.printf("<td>%.2f</td>", b.getPrice());
-		   				out.println("</tr>");
-		   				total = total + b.getPrice();
-		   			}
-		   		}
-		   		catch (Exception e) {
-		   			e.printStackTrace();
-		   		}
-	   out.println("</tbody>");
-
 	   out.println("</table>");
 	   out.printf("<Total Amount: Rs. %.2f/-<br/><br/>",total);
 	   out.println("<a href='logout'>SignOut</a>");
