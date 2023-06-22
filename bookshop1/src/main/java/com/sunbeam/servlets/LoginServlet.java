@@ -1,8 +1,9 @@
-
 package com.sunbeam.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,25 +22,31 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String password = req.getParameter("passwd");
-		try (CustomerDao dao = new CustomerDao()) {
+		try(CustomerDao dao = new CustomerDao()) {
 			Customer dbCust = dao.findByEmail(email);
-			if (dbCust != null && dbCust.getPassword().equals(password)) {
-				
-				Cookie c = new Cookie("uname",dbCust.getName());
+			if(dbCust != null && dbCust.getPassword().equals(password)) {
+				// store user name in a cookie and send to client
+				Cookie c = new Cookie("uname", dbCust.getName());
 				c.setMaxAge(3600);
 				resp.addCookie(c);
 				
-								HttpSession session = req.getSession();
-							session.setAttribute("cust", dbCust);
+				// store customer into session
+				HttpSession session = req.getSession();
+				session.setAttribute("cust", dbCust);
+				
+				// store an empty shopping cart into the session
+				List<Integer> cart = new ArrayList<Integer>();
+				session.setAttribute("cart", cart);
 				
 				// go to subjects or books servlet
-				if (dbCust.getRole().equals("ROLE_CUSTOMER"))
+				if(dbCust.getRole().equals("ROLE_CUSTOMER"))
 					resp.sendRedirect("subjects");
-				else if (dbCust.getRole().equals("ROLE_ADMIN"))
+				else if(dbCust.getRole().equals("ROLE_ADMIN"))
 					resp.sendRedirect("books");
 				else
 					resp.sendRedirect("index.html");
-			} else {
+			}
+			else {
 				resp.setContentType("text/html");
 				PrintWriter out = resp.getWriter();
 				out.println("<html>");
@@ -57,9 +64,14 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
 }
+
+
+
+
+
